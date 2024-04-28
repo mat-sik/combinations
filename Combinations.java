@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Combinations {
     public static void main(String[] args) {
-        List<int[]> combs = iterative(3, 5);
+//        List<int[]> combs = iterative(3, 5);
+        List<int[]> combs = recursive(3, 5);
         List<List<Integer>> printableCombs = combs.stream().map(arr -> Arrays.stream(arr).boxed().toList()).toList();
         System.out.println(printableCombs);
     }
@@ -21,6 +22,26 @@ public class Combinations {
      * 2 4 5
      * 3 4 5
      */
+
+    public static List<int[]> recursive(int n, int k) {
+        List<int[]> output = new ArrayList<>();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            rec(output, arr, 0, i + 1, n, k);
+        }
+        return output;
+    }
+
+    public static void rec(List<int[]> output, int[] arr, int depth, int value, int n, int k) {
+        arr[depth] = value;
+        if (depth == n - 1) {
+            output.add(arr.clone());
+            return;
+        }
+        for (int i = value + 1; i <= k; i++) {
+            rec(output, arr, depth + 1, i, n, k);
+        }
+    }
 
     public static List<int[]> iterative(int n, int k) {
         List<int[]> output = new ArrayList<>();
@@ -46,7 +67,7 @@ public class Combinations {
                 arr[i] += 1;
                 // initialize array to first valid combination given arr[i]
                 for (i = i + 1; i < n; i++) {
-                    arr[i] = arr[i-1] + 1;
+                    arr[i] = arr[i - 1] + 1;
                 }
                 // start from the back again.
                 i = n - 1;
