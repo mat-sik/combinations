@@ -30,7 +30,7 @@ public class Combinations {
         int i = n - 1;
 
         while (true) {
-            // if can increment last el, increment it and we have new valid combination.
+            // if you can increment last el, increment it, and we have new valid combination.
             if (arr[i] + 1 <= k) {
                 arr[i] += 1;
                 output.add(arr.clone());
@@ -39,7 +39,7 @@ public class Combinations {
                 do {
                     i--;
                 } while (i >= 0 && arr[i] == k - ((n - 1) - i));
-                // if you went through all array, no more valid combinations can be generated
+                // if you went through all array, no more valid combinations can be generated.
                 if (i < 0) {
                     break;
                 }
@@ -48,7 +48,8 @@ public class Combinations {
                 for (i = i + 1; i < n; i++) {
                     arr[i] = arr[i-1] + 1;
                 }
-                i--;
+                // start from the back again.
+                i = n - 1;
                 // add this first new valid combination.
                 output.add(arr.clone());
             }
